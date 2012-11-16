@@ -15,6 +15,7 @@ public class FaceDetection{
 	}	
 	
 	public static void detect(IplImage src){
+		
 		CvHaarClassifierCascade cascade = new 
 				CvHaarClassifierCascade(cvLoad(XML_FILE));
 		CvMemStorage storage = CvMemStorage.create();
@@ -28,18 +29,9 @@ public class FaceDetection{
 		
 		cvClearMemStorage(storage);
 		
-		int total_objects = sign.total();
+		int total_Faces = sign.total();		
 		
-		if(total_objects > 0){
-			System.out.println("detected " + total_objects + " objects");
-			
-		}
-		else{
-			System.out.println("not detected");	
-			
-		}
-		
-		for(int i = 0; i < total_objects; i++){
+		for(int i = 0; i < total_Faces; i++){
 			CvRect r = new CvRect(cvGetSeqElem(sign, i));
 			cvRectangle (
 					src,
