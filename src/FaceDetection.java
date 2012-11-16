@@ -5,20 +5,26 @@ import static com.googlecode.javacv.cpp.opencv_objdetect.*;
 
 public class FaceDetection{
 	
+	//Load haar classifier XML file
 	public static final String XML_FILE = 
 			"resources/haarcascade_frontalface_default.xml";
 	
 	public static void main(String[] args){
 		
+		//Load image
 		IplImage img = cvLoadImage("resources/lena.jpg");		
 		detect(img);		
 	}	
 	
+	//Detect for face using classifier XML file 
 	public static void detect(IplImage src){
 		
-		CvHaarClassifierCascade cascade = new 
-				CvHaarClassifierCascade(cvLoad(XML_FILE));
+		//Define classifier 
+		CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(XML_FILE));
+		
 		CvMemStorage storage = CvMemStorage.create();
+		
+		//Detect objects
 		CvSeq sign = cvHaarDetectObjects(
 				src,
 				cascade,
@@ -31,6 +37,7 @@ public class FaceDetection{
 		
 		int total_Faces = sign.total();		
 		
+		//Draw rectangles around detected objects
 		for(int i = 0; i < total_Faces; i++){
 			CvRect r = new CvRect(cvGetSeqElem(sign, i));
 			cvRectangle (
@@ -44,6 +51,7 @@ public class FaceDetection{
 			
 		}
 		
+		//Display result
 		cvShowImage("Result", src);
 		cvWaitKey(0);
 		
